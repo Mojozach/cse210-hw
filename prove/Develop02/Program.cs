@@ -4,8 +4,7 @@ class Program
 {
     static void Main(string[] args)
     {
-        Journal journal = new Journal();
-        
+       
         Console.WriteLine("\nWelcome to the Journal Program! ");
         Console.WriteLine("\nPlease select one of the following choices: ");
         Console.WriteLine("1. Write: ");
@@ -17,9 +16,5 @@ class Program
         
         string choice = Console.ReadLine();
         
-        if choice = 1
-        {
-
-        }
     }
 }
