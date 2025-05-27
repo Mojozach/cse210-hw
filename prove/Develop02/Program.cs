@@ -1,6 +1,7 @@
 using System;
 using System.Reflection.Metadata;
-
+// This program exceeds requirements by writing a random inspirational thought when started to help motivate the user.
+// Additional journal prompts were also added in addition to the basic requirements.
 class Program
 {
     static void Main(string[] args)
