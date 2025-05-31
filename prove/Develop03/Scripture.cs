@@ -39,4 +39,13 @@ class Scripture
         return (_hiddenWordCount == _words.Count);
     }
 
+    public void UserInputScripture()
+    {
+        Console.WriteLine("What is the new scripture? ");
+        string newScript = Console.ReadLine();
+        _words = new List<string>(newScript.Split(' '));
+        _wordCount = _words.Count;
+        // Send scripture to words
+        myWord = new Word(_words);
+    }
 }
