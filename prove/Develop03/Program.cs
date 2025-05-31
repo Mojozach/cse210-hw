@@ -1,5 +1,6 @@
 using System;
-
+// Exceeded requirements by not blanking words that had already been blanked.
+// Also allowed a user to input a new scripture and override the default one
 class Program
 {
     static void Main(string[] args)
@@ -17,7 +18,7 @@ class Program
             myRef.UserInputReference();
             script.UserInputScripture();
         }
-        
+
         do
         {
             Console.Clear();
@@ -28,6 +29,6 @@ class Program
             Console.WriteLine("Press enter to continue or type 'quit' to finish: ");
             userInput = Console.ReadLine();
 
-        } while ((userInput != "quit") && (allWordsHidden != true)); 
+        } while ((userInput != "quit") && (allWordsHidden != true));
     }
 }

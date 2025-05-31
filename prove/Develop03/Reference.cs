@@ -8,7 +8,7 @@ class Reference
     private int _endVerse;
 
 
-
+    // Constructor for Reference class
     public Reference(string book, int chapter, int startVerse)
     {
         _book = book;
@@ -17,6 +17,7 @@ class Reference
         _endVerse = startVerse;
     }
 
+    // Constructor for Reference class with additional parameter of endVerse
     public Reference(string book, int chapter, int startVerse, int endVerse)
     {
         _book = book;
@@ -25,6 +26,7 @@ class Reference
         _endVerse = endVerse;
     }
 
+    // Displays the reference
     public void Display()
     {
 

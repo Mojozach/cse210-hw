@@ -8,6 +8,7 @@ class Word
     private int _totalWords;
     private static Random _random = new Random();
 
+    // Constructor for Word Class
     public Word(List<string> words)
     {
         // Create a list of Boolean flags  = to the number of words with all initialized to false.
@@ -36,6 +37,7 @@ class Word
         return (_numWordsHidden);
     }
 
+    // This method returns if a word is hidden
     public bool IsHidden(int listIndex)
     {
         return _isHidden[listIndex];

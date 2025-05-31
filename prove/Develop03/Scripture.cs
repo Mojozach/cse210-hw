@@ -10,6 +10,7 @@ class Scripture
     private List<string> _words;
     private Word myWord;
 
+    // Constructor for Scripture Class
     public Scripture(string textInput)
     {
         _words = new List<string>(textInput.Split(' '));
@@ -18,6 +19,8 @@ class Scripture
         myWord = new Word(_words);
     }
 
+    // Displays the scripture, after the first display it starts calling Word class to create blanks and display with some words
+    // blanked out.
     public bool Display()
     {
         if (_firstTime)
@@ -39,6 +42,7 @@ class Scripture
         return (_hiddenWordCount == _words.Count);
     }
 
+    // Allows the user to input a new scripture to learn
     public void UserInputScripture()
     {
         Console.WriteLine("What is the new scripture? ");
