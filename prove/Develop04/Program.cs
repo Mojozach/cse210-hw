@@ -6,7 +6,9 @@ class Program
     {
         bool running = true;
         Breathing myBreath = new Breathing();
+        Listing myListing = new Listing();
 
+        Console.Clear();
         while (running)
         {
             Console.WriteLine("=== Menu Options: === ");
@@ -21,14 +23,13 @@ class Program
             switch (input)
             {
                 case "1":
-                    Console.WriteLine("You selected Option One.");
                     myBreath.PerformActivity();
                     break;
                 case "2":
-                    Console.WriteLine("You selected Option Two.");
+
                     break;
                 case "3":
-                    Console.WriteLine("Listing");
+                    myListing.PerformActivity();
                     break;
                 case "4":
                     Console.WriteLine("Exiting the program.");

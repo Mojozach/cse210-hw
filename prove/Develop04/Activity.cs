@@ -1,59 +1,58 @@
 using System;
 using System.Threading;
 
-public abstract class Activity
+public class Activity
 {
-    private string _name;
-    private string _description;
-    protected int _duration;
-
-    public Activity(string name, string description)
+    public int _time;
+    public Activity()
     {
-        _name = name;
-        _description = description;
     }
 
-    protected void ShowSpinner(int seconds)
+    public void ShowSpinner(int durationInSeconds)
     {
-        string[] spinner = { "|", "/", "-", "\\" };
-        DateTime end = DateTime.Now.AddSeconds(seconds);
-        int i = 0;
-        while (DateTime.Now < end)
+        string[] spinner = { "/", "-", "\\", "|" };
+        int totalFrames = durationInSeconds * 5; // 5 frames per second
+        for (int i = 0; i < totalFrames; i++)
         {
             Console.Write(spinner[i % spinner.Length]);
             Thread.Sleep(200);
-            Console.Write("\b");
-            i++;
+            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
         }
+        Console.Write(" ");
+        Console.WriteLine();
     }
 
-    protected void Countdown(int seconds)
+    public void Countdown(int seconds)
     {
         for (int i = seconds; i > 0; i--)
         {
-            Console.Write($"{i}...");
+            Console.Write(i);
             Thread.Sleep(1000);
-            Console.Write("\r   \r");
+            Console.SetCursorPosition(Console.CursorLeft - 1, Console.CursorTop);
         }
+        Console.Write(" ");
+        Console.WriteLine();
     }
 
-    protected void DisplayStartMessage()
+    public void DisplayStartMessage()
     {
+        while (!int.TryParse(Console.ReadLine(), out _time) || _time <= 0)
+            if (!int.TryParse(Console.ReadLine(), out _time))
+            {
+                Console.WriteLine("Please enter a valid number greater than 0: ");
+            }
         Console.Clear();
-        Console.WriteLine($"Starting: {_name}\n{_description}\n");
-        Console.Write("Enter duration in seconds: ");
-        _duration = int.Parse(Console.ReadLine());
-        Console.WriteLine("Prepare to begin...");
+        Console.WriteLine("Get ready... ");
+
         ShowSpinner(3);
     }
 
-    protected void DisplayEndMessage()
+    protected void DisplayEndMessage(string activityName)
     {
-        Console.WriteLine("\nWell done!");
-        ShowSpinner(2);
-        Console.WriteLine($"You have completed the {_name} for {_duration} seconds.");
+        Console.WriteLine("Well done!!!");
         ShowSpinner(3);
+        Console.WriteLine($"Great job! You've completed the {activityName} activity for {_time} seconds.");
+        ShowSpinner(3);
+        Console.Clear();
     }
-
-    public abstract void Run();
 }
