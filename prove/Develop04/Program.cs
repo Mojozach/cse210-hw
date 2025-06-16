@@ -7,6 +7,7 @@ class Program
         bool running = true;
         Breathing myBreath = new Breathing();
         Listing myListing = new Listing();
+        Reflection myReflection = new Reflection();
 
         Console.Clear();
         while (running)
@@ -26,7 +27,7 @@ class Program
                     myBreath.PerformActivity();
                     break;
                 case "2":
-
+                    myReflection.PerformActivity();
                     break;
                 case "3":
                     myListing.PerformActivity();
