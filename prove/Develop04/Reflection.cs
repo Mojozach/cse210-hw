@@ -12,7 +12,7 @@ class Reflection : Activity
        "When have you felt the Holy Ghost this month? ",
        "Think of a time when you did something truly selfless. "
     };
-     List<string> _prompt2 = new List<string>
+    List<string> _prompt2 = new List<string>
     {
        "Why was this experience meaningful to you? ",
        "Have you ever done anything like this before? ",
@@ -26,7 +26,7 @@ class Reflection : Activity
     };
     public Reflection()
     {
-    
+
     }
     public void PerformActivity()
     {
@@ -62,4 +62,5 @@ class Reflection : Activity
 
         DisplayEndMessage("reflection");
     }
+
 }
