@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-
+//Made it so for prompt2 it doesn't repeat questions till all questions been answered.
 class Reflection : Activity
 {
     List<string> _prompt = new List<string>
@@ -24,9 +24,12 @@ class Reflection : Activity
        "What did you learn about yourself through this experience?",
        "How can you keep this experience in mind in the future? "
     };
+    
+    // List of available remaining questions
+    List<string> availQuestions;
     public Reflection()
     {
-
+        availQuestions = new List<string>(_prompt2);
     }
     public void PerformActivity()
     {
@@ -50,17 +53,26 @@ class Reflection : Activity
         Countdown(5);
         int timer = 0;
         Console.Clear();
+
         while (timer < _time)
         {
+            // After pool is empty, reset:
+            if (availQuestions.Count == 0)
+            {
+                availQuestions = new List<string>(_prompt2);
+            }
+
             Random random2 = new Random();
-            index = random2.Next(_prompt2.Count);
-            string randomPrompt2 = _prompt2[index];
+            index = random2.Next(availQuestions.Count);
+            string randomPrompt2 = availQuestions[index];
+            availQuestions.RemoveAt(index); // Remove to avoid repetition
             Console.Write($"{randomPrompt2} ");
             ShowSpinner(10);
             timer += 10;
         }
 
         DisplayEndMessage("reflection");
+        Console.Clear();
     }
 
 }
