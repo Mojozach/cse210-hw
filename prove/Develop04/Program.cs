@@ -1,6 +1,6 @@
 using System;
-//Core requirments are done. Going figure the creativity part later, having struggles trying to make it work. 
 class Program
+//Made it so for prompt2 in reflection. It doesn't repeat questions till all questions been answered.
 {
     static void Main()
     {
@@ -43,7 +43,7 @@ class Program
             }
 
         }
-       
-        
+
+
     }
 }

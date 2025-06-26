@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-//Made it so for prompt2 it doesn't repeat questions till all questions been answered.
+
 class Reflection : Activity
 {
     List<string> _prompt = new List<string>
