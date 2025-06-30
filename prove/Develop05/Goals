@@ -1,0 +1,6 @@
+total,100
+SimpleGoal,church,go to church a lot,50,True
+SimpleGoal,smoke,smoke is bad,100,True
+EternalGoal,swim,swim lots,25
+ChecklistGoal,temple,Go to temple,50,500,3,3
+ChecklistGoal,sleep,sleep for a long time,4,400,4,0
