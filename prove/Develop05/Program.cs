@@ -1,18 +1,17 @@
 using System;
 class Program
-// TBD describe exceeds expectations
+// For exceeds expectations, I have added a leveling up system to help motivate the user.
 {
     static void Main()
     {
         bool running = true;
-        int points = 0;
-
         Goals myGoals = new Goals();
 
         Console.Clear();
         while (running)
         {
-            Console.WriteLine($"You have {points} points.");
+            Console.WriteLine($"You have {myGoals.GetPoints()} points.");
+            PrintTitle();
             Console.WriteLine();
             Console.WriteLine("Menu Options: ");
             Console.WriteLine("1. Create New Goal ");
@@ -40,7 +39,7 @@ class Program
                     myGoals.LoadGoals();
                     break;
                 case "5":
-                    points = myGoals.RecordEvent();
+                    myGoals.RecordEvent();
                     break;
                 case "6":
                     Console.WriteLine("Exiting the program.");
@@ -52,6 +51,31 @@ class Program
 
             }
 
+        }
+        void PrintTitle()
+        {
+            int totalPoints = myGoals.GetPoints();
+
+            if (totalPoints < 100)
+                Console.WriteLine("Unfortunately, you are a slacker.");
+            else if (totalPoints < 150)
+                Console.WriteLine("You are a poor lowly peasant.");
+            else if (totalPoints < 250)
+                Console.WriteLine("You are now a majestic Knight.");
+            else if (totalPoints < 450)
+                Console.WriteLine("What is better than a Royal Knight?");
+            else if (totalPoints < 500)
+                Console.WriteLine("You are a vicious Baron.");
+            else if (totalPoints < 750)
+                Console.WriteLine("You are now a regal Earl.");
+            else if (totalPoints < 1000)
+                Console.WriteLine("The world is graced by your presence majestic Duke.");
+            else if (totalPoints < 1500)
+                Console.WriteLine("You are a saintly Prince.");
+            else if (totalPoints < 2000)
+                Console.WriteLine("You are a noble and wise King.");
+            else
+                Console.WriteLine("You are a terrifying and all knowing Wizard.");
         }
     }
 }

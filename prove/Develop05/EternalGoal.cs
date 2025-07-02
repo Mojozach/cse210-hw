@@ -1,36 +1,24 @@
-using System;
-class EternalGoals
+public class EternalGoal : Goal
 {
-    private string _description;
-    private string _goal;
-    private int _points;
-    private List<string> _eternalGoals = new List<string> { };
-
-    public EternalGoals()
+    public override void RecordEvent()
     {
-
+        // Do nothing permanent — can be recorded repeatedly
     }
 
-    public void Create()
+    public override bool IsComplete() => false;
+
+    public override string GetStringRepresentation()
     {
-        Console.Write("What is the name of your goal? ");
-        _goal = Console.ReadLine();
-        Console.Write("What is a short description of it? ");
-        _description = Console.ReadLine();
-        Console.Write("What is the amount of points associated with this goal? ");
-        _points = int.Parse(Console.ReadLine());
-        string newList = $"EternalGoal,{_goal},{_description},{_points}";
-        _eternalGoals.Add(newList);
-    }  
-    public List<string> GetEternalGoals()
-    {
-        return _eternalGoals;
+        return $"EternalGoal,{Name},{Description},{Points}";
     }
 
-    public void SetEternalGoals(string eternalGoals)
+    public override string Display()
     {
-        //_simpleGoals.Clear();
-        _eternalGoals.Add(eternalGoals);
+        return $"[ ] {Name} ({Description})";
     }
-  
+
+    public override string DisplayName()
+    {
+        return $"{Name}";
+    }
 }

@@ -1,223 +1,180 @@
-using System;
-using System.Collections.Generic;
-using System.Dynamic;
-using System.Runtime.CompilerServices;
-
-class Goals
+public class Goals
 {
-    private string _fileName;
-    SimpleGoals mySimpleGoals = new SimpleGoals();
-    EternalGoals myEternalGoals = new EternalGoals();
-    Checklist myChecklist = new Checklist();
-
-    private int _totalPoints = 0;
-
-    public Goals()
-    {
-
-    }
+    private List<Goal> _allGoals = new List<Goal>();
+    private int _totalPoints;
 
     public void CreateGoal()
     {
-        Console.WriteLine("The types of Goals are: ");
-        Console.WriteLine("1. Simple Goals ");
-        Console.WriteLine("2. Eternal Goals ");
-        Console.WriteLine("3. Checklist Goal ");
-        Console.Write("Which type of goal would you like to create? ");
+        Console.WriteLine("Types: 1. Simple 2. Eternal 3. Checklist");
+        Console.Write("Which type? ");
+        string choice = Console.ReadLine();
 
-        string input = Console.ReadLine();
+        Goal newGoal = null;
 
-        switch (input)
+        switch (choice)
         {
             case "1":
-                mySimpleGoals.Create();
+                newGoal = CreateSimple();
                 break;
             case "2":
-                myEternalGoals.Create();
+                newGoal = CreateEternal();
                 break;
             case "3":
-                myChecklist.Create();
-                break;
-            default:
-                Console.WriteLine("Invalid choice. Try again.");
+                newGoal = CreateChecklist();
                 break;
         }
+
+        if (newGoal != null) _allGoals.Add(newGoal);
     }
 
+    private SimpleGoal CreateSimple()
+    {
+        var g = new SimpleGoal();
+        FillCommonFields(g);
+        g.Completed = false;
+        return g;
+    }
+
+    private EternalGoal CreateEternal()
+    {
+        var g = new EternalGoal();
+        FillCommonFields(g);
+        return g;
+    }
+
+    private ChecklistGoal CreateChecklist()
+    {
+        var g = new ChecklistGoal();
+        FillCommonFields(g);
+        Console.Write("Required completions for bonus: ");
+        g.RequiredCount = int.Parse(Console.ReadLine());
+        Console.Write("Bonus points: ");
+        g.BonusPoints = int.Parse(Console.ReadLine());
+        g.CurrentCount = 0;
+        return g;
+    }
+
+    private void FillCommonFields(Goal g)
+    {
+        Console.Write("Name: ");
+        g.Name = Console.ReadLine();
+        Console.Write("Description: ");
+        g.Description = Console.ReadLine();
+        Console.Write("Points: ");
+        g.Points = int.Parse(Console.ReadLine());
+    }
+
+    public void JustGoals()
+    {
+        int i = 1;
+        foreach (var g in _allGoals)
+        {
+            Console.WriteLine($"{i}. {g.DisplayName()}");
+            i++;
+        }
+    }
     public void ListGoals()
     {
-        int numList = 1;
-
-        foreach (string entry in mySimpleGoals.GetSimpleGoals())
+        int i = 1;
+        foreach (var g in _allGoals)
         {
-            string[] items = entry.Split(',');
-            if (bool.Parse(items[4]))
-              Console.WriteLine($"{numList}. [X] {items[1]} ({items[2]})");
-            else
-              Console.WriteLine($"{numList}. [ ] {items[1]} ({items[2]})");
-            numList++;
-        }
-        
-        foreach (string entry in myEternalGoals.GetEternalGoals())
-        {
-            string[] items = entry.Split(',');
-            Console.WriteLine($"{numList}. [ ] {items[1]} ({items[2]})");
-            numList++;
-        }
-        
-        foreach (string entry in myChecklist.GetChecklistGoals())
-        {
-            string[] items = entry.Split(',');
-            if (int.Parse(items[5]) == int.Parse(items[6]))
-                Console.WriteLine($"{numList}. [X] {items[1]} ({items[2]}) -- Currently Completed: {items[6]}/{items[5]}");
-            else
-                Console.WriteLine($"{numList}. [ ] {items[1]} ({items[2]}) -- Currently Completed: {items[6]}/{items[5]}");
-            numList++;
-        }
-        Console.WriteLine();
-
-    }
-
-    public void SaveGoals()
-    {
-        Console.Write("What would you like to name the file?");
-        _fileName = Console.ReadLine();
-
-        using (StreamWriter outputFile = new StreamWriter(_fileName))
-        {
-            outputFile.WriteLine($"total,{_totalPoints}");
-            foreach (string entry in mySimpleGoals.GetSimpleGoals())
-            {
-                outputFile.WriteLine(entry);
-            }
-            foreach (string entry in myEternalGoals.GetEternalGoals())
-            {
-                outputFile.WriteLine(entry);
-            }
-            foreach (string entry in myChecklist.GetChecklistGoals())
-            {
-                outputFile.WriteLine(entry);
-            }
-        }
-
-        Console.WriteLine("You have saved your Goals! ");
-    }
-
-    public void LoadGoals()
-    {
-        Console.Write("What is the name of the file you would like to load? ");
-        _fileName = Console.ReadLine();
-
-        if (File.Exists(_fileName))
-        {
-            string[] lines = File.ReadAllLines(_fileName);
-
-            foreach (string line in lines)
-            {
-                string[] items = line.Split(',');
-                if (items[0] == "total")
-                {
-                    int num = int.Parse(items[1]);
-                    _totalPoints = num;
-                    Console.WriteLine($"{items[1]}, {num}");
-                }
-                else if (items[0] == "SimpleGoal")
-                    mySimpleGoals.SetSimpleGoals(line);
-                else if (items[0] == "EternalGoal")
-                    myEternalGoals.SetEternalGoals(line);
-                else
-                    myChecklist.SetChecklistGoals(line);
-            }
-        }
-        else
-        {
-            Console.WriteLine("File not found.");
+            Console.WriteLine($"{i}. {g.Display()}");
+            i++;
         }
     }
 
     public int RecordEvent()
     {
-        int numList = 1;
+        JustGoals();
+        Console.Write("Which goal did you complete? ");
+        int choice = int.Parse(Console.ReadLine());
 
-        foreach (string entry in mySimpleGoals.GetSimpleGoals())
+        if (choice > 0 && choice <= _allGoals.Count)
         {
-            string[] items = entry.Split(',');
-            Console.WriteLine($"{numList}. {items[1]}");
-            numList++;
-        }
+            var goal = _allGoals[choice - 1];
+            goal.RecordEvent();
+            _totalPoints += goal.Points;
 
-        foreach (string entry in myEternalGoals.GetEternalGoals())
-        {
-            string[] items = entry.Split(',');
-            Console.WriteLine($"{numList}. {items[1]}");
-            numList++;
-        }
-
-        foreach (string entry in myChecklist.GetChecklistGoals())
-        {
-            string[] items = entry.Split(',');
-            Console.WriteLine($"{numList}. {items[1]}");
-            numList++;
-        }
-        Console.WriteLine();
-
-        // get the number of event
-        Console.Write("Which goal did you accomplish? ");
-        int listNumber = int.Parse(Console.ReadLine());
-
-        numList = 1;
-        bool found = false;
-
-        foreach (string entry in mySimpleGoals.GetSimpleGoals())
-        {
-            string[] items = entry.Split(',');
-            if (listNumber == numList)
+            if (goal is ChecklistGoal cg && cg.IsComplete())
             {
-                _totalPoints += int.Parse(items[3]);
-                Console.WriteLine($"Congratulations! You have earned {items[3]}");
-                found = true;
+                _totalPoints += cg.BonusPoints;
             }
-            numList++;
-        }
-        if (found)
-            mySimpleGoals.SetActivity(listNumber-1);
 
-        foreach (string entry in myEternalGoals.GetEternalGoals())
+            Console.WriteLine($"You've earned {goal.Points} points!");
+        }
+        return (_totalPoints);
+    }
+
+    public void SaveGoals()
+    {
+        Console.Write("File name: ");
+        string file = Console.ReadLine();
+
+        using (var writer = new StreamWriter(file))
         {
-            string[] items = entry.Split(',');
-            if (listNumber == numList)
+            writer.WriteLine($"total,{_totalPoints}");
+            foreach (var goal in _allGoals)
             {
-                _totalPoints += int.Parse(items[3]);
-                Console.WriteLine($"Congratulations! You have earned {items[3]}");
+                writer.WriteLine(goal.GetStringRepresentation());
             }
-            numList++;
         }
+    }
 
-        int whichActivity = 0;
-        found = false;
+    public void LoadGoals()
+    {
+        Console.Write("File name: ");
+        string file = Console.ReadLine();
 
-        foreach (string entry in myChecklist.GetChecklistGoals())
+        if (File.Exists(file))
         {
-            string[] items = entry.Split(',');
-            if (listNumber == numList)
+            string[] lines = File.ReadAllLines(file);
+            _allGoals.Clear();
+
+            foreach (var line in lines)
             {
-                _totalPoints += int.Parse(items[3]);
-                Console.WriteLine($"Congratulations! You have earned {items[3]}");
-                found = true;
-                break;
+                var parts = line.Split(',');
+
+                if (parts[0] == "total")
+                {
+                    _totalPoints = int.Parse(parts[1]);
+                }
+                else if (parts[0] == "SimpleGoal")
+                {
+                    _allGoals.Add(new SimpleGoal
+                    {
+                        Name = parts[1],
+                        Description = parts[2],
+                        Points = int.Parse(parts[3]),
+                        Completed = bool.Parse(parts[4])
+                    });
+                }
+                else if (parts[0] == "EternalGoal")
+                {
+                    _allGoals.Add(new EternalGoal
+                    {
+                        Name = parts[1],
+                        Description = parts[2],
+                        Points = int.Parse(parts[3])
+                    });
+                }
+                else if (parts[0] == "ChecklistGoal")
+                {
+                    _allGoals.Add(new ChecklistGoal
+                    {
+                        Name = parts[1],
+                        Description = parts[2],
+                        Points = int.Parse(parts[3]),
+                        BonusPoints = int.Parse(parts[4]),
+                        RequiredCount = int.Parse(parts[5]),
+                        CurrentCount = int.Parse(parts[6])
+                    });
+                }
             }
-            numList++;
-            whichActivity++;
         }
-        if (found)
-        {
-            int bonus = myChecklist.SetActivity(whichActivity);
-            _totalPoints += bonus;
-        }
-        Console.WriteLine();
+    }
 
-        Console.WriteLine($"You now have {_totalPoints}! ");
-
-        return _totalPoints;
+    public int GetPoints()
+    {
+        return (_totalPoints);
     }
 }

@@ -1,47 +1,27 @@
-using System;
-using System.Collections.Generic;
-using System.Diagnostics.Contracts;
-
-class SimpleGoals
+public class SimpleGoal : Goal
 {
-    private string _goal;
-    private string _description;
-    private int _points;
-    private List<string> _simpleGoals = new List<string> { };
+    public bool Completed { get; set; }
 
-    public SimpleGoals()
+    public override void RecordEvent()
     {
-
+        Completed = true;
     }
 
-    public void Create()
+    public override bool IsComplete() => Completed;
+
+    public override string GetStringRepresentation()
     {
-        Console.Write("What is the name of your goal? ");
-        _goal = Console.ReadLine();
-        Console.Write("What is a short description of it? ");
-        _description = Console.ReadLine();
-        Console.Write("What is the amount of points associated with this goal? ");
-        _points = int.Parse(Console.ReadLine());
-        string newList = $"SimpleGoal,{_goal},{_description},{_points},False";
-        _simpleGoals.Add(newList);
+        return $"SimpleGoal,{Name},{Description},{Points},{Completed}";
     }
 
-    public List<string> GetSimpleGoals()
+    public override string Display()
     {
-        return _simpleGoals;
+        string check = Completed ? "[X]" : "[ ]";
+        return $"{check} {Name} ({Description})";
     }
-
-    public void SetSimpleGoals(string simpleGoals)
+    
+    public override string DisplayName()
     {
-        //_simpleGoals.Clear();
-        _simpleGoals.Add(simpleGoals);
+        return $"{Name}";
     }
-
-    public void SetActivity(int listNumber)
-    {
-        string[] entries = _simpleGoals[listNumber].Split(','); 
-        entries[4] = "True";
-        _simpleGoals[listNumber] = string.Join(",", entries); 
-    }
-
 }
