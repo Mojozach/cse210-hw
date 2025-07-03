@@ -5,8 +5,8 @@ public class Goals
 
     public void CreateGoal()
     {
-        Console.WriteLine("Types: 1. Simple 2. Eternal 3. Checklist");
-        Console.Write("Which type? ");
+        Console.WriteLine("The types of Goals are:\n1. Simple Goal\n2. Eternal Goal\n3. Checklist Goal");
+        Console.Write("Which type of goal would you like to create? ");
         string choice = Console.ReadLine();
 
         Goal newGoal = null;
@@ -46,9 +46,9 @@ public class Goals
     {
         var g = new ChecklistGoal();
         FillCommonFields(g);
-        Console.Write("Required completions for bonus: ");
+        Console.Write("How many times does this goal need to be accomplished for a bonus? ");
         g.RequiredCount = int.Parse(Console.ReadLine());
-        Console.Write("Bonus points: ");
+        Console.Write("What is the bonus for accomplishing it that many times? ");
         g.BonusPoints = int.Parse(Console.ReadLine());
         g.CurrentCount = 0;
         return g;
@@ -56,11 +56,11 @@ public class Goals
 
     private void FillCommonFields(Goal g)
     {
-        Console.Write("Name: ");
+        Console.Write("What is the name of your goal? ");
         g.Name = Console.ReadLine();
-        Console.Write("Description: ");
+        Console.Write("What is a short description of it? ");
         g.Description = Console.ReadLine();
-        Console.Write("Points: ");
+        Console.Write("What is the amount of points associated with this goal? ");
         g.Points = int.Parse(Console.ReadLine());
     }
 
@@ -86,7 +86,7 @@ public class Goals
     public int RecordEvent()
     {
         JustGoals();
-        Console.Write("Which goal did you complete? ");
+        Console.Write("Which goal did you accomplish? ");
         int choice = int.Parse(Console.ReadLine());
 
         if (choice > 0 && choice <= _allGoals.Count)
@@ -100,7 +100,7 @@ public class Goals
                 _totalPoints += cg.BonusPoints;
             }
 
-            Console.WriteLine($"You've earned {goal.Points} points!");
+            Console.WriteLine($"Congratulations! You've earned {goal.Points} points!");
         }
         return (_totalPoints);
     }
