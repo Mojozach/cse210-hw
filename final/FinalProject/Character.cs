@@ -3,10 +3,10 @@ public abstract class Character
         public abstract string Name { get; }
         public abstract string Description { get; }
 
-        public int HP { get; protected set; }
-        public int Attack { get; protected set; }
-        public int Defense { get; protected set; }
-        public int Magic { get; protected set; }
+        public int HP { get; set; }
+        public int Attack { get; set; }
+        public int Defense { get; set; }
+        public int Magic { get; set; }
 
         public abstract List<string> Abilities { get; }
 
