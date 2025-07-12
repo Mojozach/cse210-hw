@@ -1,4 +1,4 @@
- public class Room
+ /*public class Room
     {
         private string _name;
         private string _description;
@@ -9,5 +9,6 @@
         public Room Exit(string direction) { return null; }
         public string Describe() { return _description; }
     }
+    */
 
 

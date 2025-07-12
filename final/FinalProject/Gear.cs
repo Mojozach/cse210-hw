@@ -1,4 +1,4 @@
-public class Gear
+/*public class Gear
 {
     private string _name;
     private int _defence;
@@ -16,3 +16,4 @@ public class Gear
     }
 
 }
+*/
