@@ -9,14 +9,18 @@ public abstract class Character
         public int Magic { get; set; }
 
         public abstract List<string> Abilities { get; }
+        public void TakeDamage(int damage)
+        {
+            HP = Math.Max(HP - damage, 0);
+        }
 
         public void ShowStats()
-        {
-            Console.WriteLine("=== Stats ===");
-            Console.WriteLine($"HP:      {HP}");
-            Console.WriteLine($"Attack:  {Attack}");
-            Console.WriteLine($"Defense: {Defense}");
-            Console.WriteLine($"Magic:   {Magic}");
-            Console.WriteLine("Abilities: " + string.Join(", ", Abilities));
-        }
+    {
+        Console.WriteLine("=== Stats ===");
+        Console.WriteLine($"HP:      {HP}");
+        Console.WriteLine($"Attack:  {Attack}");
+        Console.WriteLine($"Defense: {Defense}");
+        Console.WriteLine($"Magic:   {Magic}");
+        Console.WriteLine("Abilities: " + string.Join(", ", Abilities));
+    }
     }

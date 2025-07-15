@@ -1,5 +1,10 @@
+using System;
+
 public class Goals
 {
+    private string _name;
+    private string _description;
+    private int _points;
     private List<Goal> _allGoals = new List<Goal>();
     private int _totalPoints;
 
@@ -31,7 +36,7 @@ public class Goals
     {
         var g = new SimpleGoal();
         FillCommonFields(g);
-        g.Completed = false;
+        g.SetCompleted(false);
         return g;
     }
 
@@ -46,22 +51,28 @@ public class Goals
     {
         var g = new ChecklistGoal();
         FillCommonFields(g);
+
         Console.Write("How many times does this goal need to be accomplished for a bonus? ");
-        g.RequiredCount = int.Parse(Console.ReadLine());
+        g.SetRequiredCount(int.Parse(Console.ReadLine()));
+
         Console.Write("What is the bonus for accomplishing it that many times? ");
-        g.BonusPoints = int.Parse(Console.ReadLine());
-        g.CurrentCount = 0;
+        g.SetBonusPoints(int.Parse(Console.ReadLine()));
+
+        g.SetCurrentCount(0);
+
         return g;
     }
 
     private void FillCommonFields(Goal g)
     {
         Console.Write("What is the name of your goal? ");
-        g.Name = Console.ReadLine();
+        g.SetName(Console.ReadLine());
+
         Console.Write("What is a short description of it? ");
-        g.Description = Console.ReadLine();
+        g.SetDescription(Console.ReadLine());
+
         Console.Write("What is the amount of points associated with this goal? ");
-        g.Points = int.Parse(Console.ReadLine());
+        g.SetPoints(int.Parse(Console.ReadLine()));
     }
 
     public void JustGoals()
@@ -73,6 +84,7 @@ public class Goals
             i++;
         }
     }
+
     public void ListGoals()
     {
         int i = 1;
@@ -93,16 +105,16 @@ public class Goals
         {
             var goal = _allGoals[choice - 1];
             goal.RecordEvent();
-            _totalPoints += goal.Points;
+            _totalPoints += goal.GetPoints();
 
             if (goal is ChecklistGoal cg && cg.IsComplete())
             {
-                _totalPoints += cg.BonusPoints;
+                _totalPoints += cg.GetBonusPoints();
             }
 
-            Console.WriteLine($"Congratulations! You've earned {goal.Points} points!");
+            Console.WriteLine($"Congratulations! You've earned {goal.GetPoints()} points!");
         }
-        return (_totalPoints);
+        return _totalPoints;
     }
 
     public void SaveGoals()
@@ -140,34 +152,31 @@ public class Goals
                 }
                 else if (parts[0] == "SimpleGoal")
                 {
-                    _allGoals.Add(new SimpleGoal
-                    {
-                        Name = parts[1],
-                        Description = parts[2],
-                        Points = int.Parse(parts[3]),
-                        Completed = bool.Parse(parts[4])
-                    });
+                    var sg = new SimpleGoal();
+                    sg.SetName(parts[1]);
+                    sg.SetDescription(parts[2]);
+                    sg.SetPoints(int.Parse(parts[3]));
+                    sg.SetCompleted(bool.Parse(parts[4]));
+                    _allGoals.Add(sg);
                 }
                 else if (parts[0] == "EternalGoal")
                 {
-                    _allGoals.Add(new EternalGoal
-                    {
-                        Name = parts[1],
-                        Description = parts[2],
-                        Points = int.Parse(parts[3])
-                    });
+                    var eg = new EternalGoal();
+                    eg.SetName(parts[1]);
+                    eg.SetDescription(parts[2]);
+                    eg.SetPoints(int.Parse(parts[3]));
+                    _allGoals.Add(eg);
                 }
                 else if (parts[0] == "ChecklistGoal")
                 {
-                    _allGoals.Add(new ChecklistGoal
-                    {
-                        Name = parts[1],
-                        Description = parts[2],
-                        Points = int.Parse(parts[3]),
-                        BonusPoints = int.Parse(parts[4]),
-                        RequiredCount = int.Parse(parts[5]),
-                        CurrentCount = int.Parse(parts[6])
-                    });
+                    var cg = new ChecklistGoal();
+                    cg.SetName(parts[1]);
+                    cg.SetDescription(parts[2]);
+                    cg.SetPoints(int.Parse(parts[3]));
+                    cg.SetBonusPoints(int.Parse(parts[4]));
+                    cg.SetRequiredCount(int.Parse(parts[5]));
+                    cg.SetCurrentCount(int.Parse(parts[6]));
+                    _allGoals.Add(cg);
                 }
             }
         }
@@ -175,6 +184,7 @@ public class Goals
 
     public int GetPoints()
     {
-        return (_totalPoints);
+        return _totalPoints;
     }
+
 }

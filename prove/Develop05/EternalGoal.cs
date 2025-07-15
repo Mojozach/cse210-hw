@@ -1,24 +1,29 @@
+using System;
+
 public class EternalGoal : Goal
 {
     public override void RecordEvent()
     {
-        // Do nothing permanent — can be recorded repeatedly
+        // Eternal goals never complete, but they can be logged repeatedly
     }
-
-    public override bool IsComplete() => false;
 
     public override string GetStringRepresentation()
     {
-        return $"EternalGoal,{Name},{Description},{Points}";
+        return $"EternalGoal,{GetName()},{GetDescription()},{GetPoints()}";
     }
 
     public override string Display()
     {
-        return $"[ ] {Name} ({Description})";
+        return $"[ ] {GetName()} ({GetDescription()})";
     }
 
     public override string DisplayName()
     {
-        return $"{Name}";
+        return $"{GetName()}";
+    }
+
+    public override bool IsComplete()
+    {
+        return false;
     }
 }

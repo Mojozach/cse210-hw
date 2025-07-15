@@ -1,3 +1,6 @@
 total,300
 SimpleGoal,Walk the dog,Walk the dog each day,100,True
 EternalGoal,Church,Go to church weekly.,100
+SimpleGoal,Poo,Poo my pants,100,False
+EternalGoal,church,Go to church weekly,300
+ChecklistGoal,Fish,Fish in the pond,20,200,200,0

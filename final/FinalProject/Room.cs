@@ -5,11 +5,13 @@ public class Room
 {
     public string Name { get; }
     public string Description { get; }
+    public Enemy Encounter { get; }
 
-    public Room(string name, string description)
+    public Room(string name, string description, Enemy encounter = null)
     {
         Name = name;
         Description = description;
+        Encounter = encounter;
     }
 
     public static Room SelectRoom()

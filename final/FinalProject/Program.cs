@@ -47,52 +47,18 @@ class Program
         Room chosenRoom = Room.SelectRoom();
         Console.WriteLine($"\nYou enter the {chosenRoom.Name}.\n{chosenRoom.Description}\n");
 
-       if (chosenRoom.Name == "Fight Arena")
-       {
-        Enemy goblin = new Enemy("Goblin", 100, 60, 40);
-        Battle(selectedCharacter, goblin);
-       }
-       else
-       {
-        Console.WriteLine("Nothing to fight here yet. Explore more rooms or come back later!");
-       }
+        if (chosenRoom.Name == "Fight Arena")
+        {
+            Enemy goblin = new Enemy("Goblin", 100, 60, 40);
+            Combat.Battle(selectedCharacter, goblin);
+        }
+        else
+        {
+            Console.WriteLine("Nothing to fight here yet. Explore more rooms or come back later!");
+        }
 
         Console.WriteLine("\nPress any key to continue...");
         Console.ReadKey();
-    }
-    
-    static void Battle(Character player, Enemy enemy)
-    {
-        Console.WriteLine($"\nBattle Start: {player.Name} VS {enemy.Name}!");
-        Console.WriteLine($"{player.Name} HP: {player.HP} | {enemy.Name} HP: {enemy.HP}\n");
-
-        while (player.HP > 0 && enemy.HP > 0)
-        {
-            // Player attacks first
-            int damageToEnemy = Math.Max(player.Attack - enemy.Defense, 0);
-            enemy.HP -= damageToEnemy;
-            Console.WriteLine($"{player.Name} attacks and deals {damageToEnemy} damage! {enemy.Name} HP left: {Math.Max(enemy.HP, 0)}");
-
-            if (enemy.HP <= 0)
-            {
-                Console.WriteLine($"\n{enemy.Name} is defeated! You win!");
-                break;
-            }
-
-            // Enemy attacks back
-            int damageToPlayer = Math.Max(enemy.Attack - player.Defense, 0);
-            player.HP -= damageToPlayer;
-            Console.WriteLine($"{enemy.Name} attacks and deals {damageToPlayer} damage! {player.Name} HP left: {Math.Max(player.HP, 0)}");
-
-            if (player.HP <= 0)
-            {
-                Console.WriteLine($"\n{player.Name} is defeated... Game Over.");
-                break;
-            }
-
-            Console.WriteLine();
-            System.Threading.Thread.Sleep(1000);
-        }
     }
 }
 
