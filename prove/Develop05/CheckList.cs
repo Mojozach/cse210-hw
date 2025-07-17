@@ -44,7 +44,11 @@ public class ChecklistGoal : Goal
         }
     }
 
-    public override bool IsComplete() => _currentCount >= _requiredCount;
+    public override bool IsComplete()
+    { 
+        return (_currentCount >= _requiredCount);
+
+    }
 
     public override string GetStringRepresentation()
     {

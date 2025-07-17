@@ -1,26 +1,40 @@
+using System;
+using System.Collections.Generic;
+
 public abstract class Character
+{
+    private int hp;
+    private int attack;
+    private int defense;
+    private int magic;
+
+    public int GetHP() => hp;
+    public void SetHP(int value) => hp = value;
+
+    public int GetAttack() => attack;
+    public void SetAttack(int value) => attack = value;
+
+    public int GetDefense() => defense;
+    public void SetDefense(int value) => defense = value;
+
+    public int GetMagic() => magic;
+    public void SetMagic(int value) => magic = value;
+
+    public abstract string GetName();
+    public abstract string GetDescription();
+    public abstract List<string> GetAbilities();
+
+    public void ShowStats()
     {
-        public abstract string Name { get; }
-        public abstract string Description { get; }
-
-        public int HP { get; set; }
-        public int Attack { get; set; }
-        public int Defense { get; set; }
-        public int Magic { get; set; }
-
-        public abstract List<string> Abilities { get; }
-        public void TakeDamage(int damage)
-        {
-            HP = Math.Max(HP - damage, 0);
-        }
-
-        public void ShowStats()
+        Console.WriteLine($"\n{GetName()} Stats:");
+        Console.WriteLine($"HP: {GetHP()}");
+        Console.WriteLine($"Attack: {GetAttack()}");
+        Console.WriteLine($"Defense: {GetDefense()}");
+        Console.WriteLine($"Magic: {GetMagic()}");
+    }
+    public void TakeDamage(int amount)
     {
-        Console.WriteLine("=== Stats ===");
-        Console.WriteLine($"HP:      {HP}");
-        Console.WriteLine($"Attack:  {Attack}");
-        Console.WriteLine($"Defense: {Defense}");
-        Console.WriteLine($"Magic:   {Magic}");
-        Console.WriteLine("Abilities: " + string.Join(", ", Abilities));
+        SetHP(Math.Max(0, GetHP() - amount));
     }
-    }
+
+}

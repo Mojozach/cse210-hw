@@ -2,14 +2,8 @@ using System;
 
 class Program
 {
-    //public void RenderRoom(Room room) { }
-    //public void ShowCombatOptions(Character character) { }
-    //public void PromptInteraction(ObjectInteraction obj) { }
-
-
     static void Main(string[] args)
     {
-
         Console.Title = "RPG Character Selection";
 
         Character selectedCharacter = null;
@@ -41,13 +35,14 @@ class Program
         }
 
         Console.Clear();
-        Console.WriteLine($"You have selected: {selectedCharacter.Name}");
-        Console.WriteLine($"Description: {selectedCharacter.Description}");
+        Console.WriteLine($"You have selected: {selectedCharacter.GetName()}");
+        Console.WriteLine($"Description: {selectedCharacter.GetDescription()}");
         selectedCharacter.ShowStats();
-        Room chosenRoom = Room.SelectRoom();
-        Console.WriteLine($"\nYou enter the {chosenRoom.Name}.\n{chosenRoom.Description}\n");
 
-        if (chosenRoom.Name == "Fight Arena")
+        Room chosenRoom = Room.SelectRoom();
+        Console.WriteLine($"\nYou enter the {chosenRoom.GetName()}.\n{chosenRoom.GetDescription()}\n");
+
+        if (chosenRoom.GetName() == "Fight Arena")
         {
             Enemy goblin = new Enemy("Goblin", 100, 60, 40);
             Combat.Battle(selectedCharacter, goblin);
@@ -59,6 +54,10 @@ class Program
 
         Console.WriteLine("\nPress any key to continue...");
         Console.ReadKey();
+
+        Trap spikeTrap = new Trap("Spike Trap", 25); // Correct instantiation
+        spikeTrap.Trigger();  // Triggers the trap
+        spikeTrap.Reset();    // Resets the trap
+        spikeTrap.Trigger();  // Triggers again
     }
 }
-

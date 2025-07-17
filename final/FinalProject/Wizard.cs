@@ -1,14 +1,21 @@
+using System;
+using System.Collections.Generic;
+
 public class Wizard : Character
 {
-    public override string Name => "Wizard";
-    public override string Description => "Master of elemental magic with powerful spells. Has High intellect";
-    public override List<string> Abilities => new List<string> { "Fireball", "Mana Shield" };
+    private List<string> abilities = new List<string> { "Fireball", "Mana Shield" };
 
     public Wizard()
     {
-        HP = 90;
-        Attack = 40;
-        Defense = 30;
-        Magic = 120;
+        SetHP(90);
+        SetAttack(40);
+        SetDefense(30);
+        SetMagic(120);
     }
+
+    public override string GetName() => "Wizard";
+
+    public override string GetDescription() => "Master of elemental magic with powerful spells. Has High intellect";
+
+    public override List<string> GetAbilities() => abilities;
 }

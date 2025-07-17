@@ -3,16 +3,20 @@ using System.Collections.Generic;
 
 public class Room
 {
-    public string Name { get; }
-    public string Description { get; }
-    public Enemy Encounter { get; }
+    private string name;
+    private string description;
+    private Enemy encounter;
 
     public Room(string name, string description, Enemy encounter = null)
     {
-        Name = name;
-        Description = description;
-        Encounter = encounter;
+        this.name = name;
+        this.description = description;
+        this.encounter = encounter;
     }
+
+    public string GetName() => name;
+    public string GetDescription() => description;
+    public Enemy GetEncounter() => encounter;
 
     public static Room SelectRoom()
     {
@@ -27,7 +31,7 @@ public class Room
 
         for (int i = 0; i < rooms.Count; i++)
         {
-            Console.WriteLine($"{i + 1}. {rooms[i].Name} - {rooms[i].Description}");
+            Console.WriteLine($"{i + 1}. {rooms[i].GetName()} - {rooms[i].GetDescription()}");
         }
 
         while (true)
@@ -42,5 +46,3 @@ public class Room
         }
     }
 }
-
-
