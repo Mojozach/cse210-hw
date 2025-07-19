@@ -3,22 +3,45 @@ using System.Collections.Generic;
 
 public abstract class Character
 {
-    private int hp;
-    private int attack;
-    private int defense;
-    private int magic;
+    private int _hp;
+    private int _attack;
+    private int _defense;
+    private int _magic;
 
-    public int GetHP() => hp;
-    public void SetHP(int value) => hp = value;
+    public int GetHP()
+    {
+        return _hp;
+    }
+    public void SetHP(int value)
+    {
+        _hp = value;
+    }
 
-    public int GetAttack() => attack;
-    public void SetAttack(int value) => attack = value;
+    public int GetAttack()
+    {
+        return _attack;
+    }
+    public void SetAttack(int value)
+    {
+        _attack = value;
+    }
+    public int GetDefense()
+    {
+        return _defense;
+    }
+    public void SetDefense(int value)
+    {
+        _defense = value;
+    }
 
-    public int GetDefense() => defense;
-    public void SetDefense(int value) => defense = value;
-
-    public int GetMagic() => magic;
-    public void SetMagic(int value) => magic = value;
+    public int GetMagic()
+    {
+        return _magic;
+    }
+    public void SetMagic(int value)
+    {
+        _magic = value;
+    }
 
     public abstract string GetName();
     public abstract string GetDescription();

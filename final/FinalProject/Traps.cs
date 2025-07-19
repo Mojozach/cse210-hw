@@ -2,37 +2,45 @@ using System;
 
 public class Trap
 {
-    private string name;
-    private int damage;
-    private bool isActive;
+    private string _name;
+    private int _damage;
+    private bool _isActive;
 
     public Trap(string name, int damage)
     {
-        this.name = name;
-        this.damage = damage;
-        this.isActive = true;
+        _name = name;
+        _damage = damage;
+        _isActive = true;
     }
 
-    public string GetName() => name;
-    public int GetDamage() => damage;
-    public bool IsActive() => isActive;
-
+    public string GetName()
+    {
+        return _name;
+    }
+    public int GetDamage()
+    {
+        return _damage;
+    }
+    public bool IsActive()
+    {
+        return _isActive;
+    }
     public void Trigger()
     {
-        if (isActive)
+        if (_isActive)
         {
-            Console.WriteLine($"Trap '{name}' is triggered! It deals {damage} damage.");
-            isActive = false;
+            Console.WriteLine($"Trap '{_name}' is triggered! It deals {_damage} damage.");
+            _isActive = false;
         }
         else
         {
-            Console.WriteLine($"Trap '{name}' has already been triggered.");
+            Console.WriteLine($"Trap '{_name}' has already been triggered.");
         }
     }
 
     public void Reset()
     {
-        isActive = true;
-        Console.WriteLine($"Trap '{name}' has been reset.");
+        _isActive = true;
+        Console.WriteLine($"Trap '{_name}' has been reset.");
     }
 }

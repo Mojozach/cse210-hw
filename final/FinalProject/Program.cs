@@ -1,10 +1,12 @@
 using System;
 
+// My main classes are characters, combat, room and traps.
+// My subclasses are elf, wizard, warrior and enemy of the base character class
 class Program
 {
     static void Main(string[] args)
     {
-        Console.Title = "RPG Character Selection";
+        Console.WriteLine("RPG Character Selection");
 
         Character selectedCharacter = null;
 
@@ -44,20 +46,23 @@ class Program
 
         if (chosenRoom.GetName() == "Fight Arena")
         {
-            Enemy goblin = new Enemy("Goblin", 100, 60, 40);
+            Enemy minotaur = new Enemy("Minotaur", 500, 60, 40);
+            Trap spikeTrap = new Trap("Spike Trap", 25);
+            spikeTrap.Trigger();  // Triggers the trap
+            selectedCharacter.TakeDamage(spikeTrap.GetDamage());
+            Combat.Battle(selectedCharacter, minotaur);
+        }
+        else if (chosenRoom.GetName() == "Training Grounds")
+        {
+            Enemy goblin = new Enemy("Goblin", 30, 20, 10);
             Combat.Battle(selectedCharacter, goblin);
         }
         else
         {
-            Console.WriteLine("Nothing to fight here yet. Explore more rooms or come back later!");
+            Console.WriteLine("You spend a week reading books and learning arcane magic.");
         }
 
         Console.WriteLine("\nPress any key to continue...");
         Console.ReadKey();
-
-        Trap spikeTrap = new Trap("Spike Trap", 25); // Correct instantiation
-        spikeTrap.Trigger();  // Triggers the trap
-        spikeTrap.Reset();    // Resets the trap
-        spikeTrap.Trigger();  // Triggers again
     }
 }

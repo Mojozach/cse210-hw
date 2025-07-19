@@ -3,20 +3,29 @@ using System.Collections.Generic;
 
 public class Room
 {
-    private string name;
-    private string description;
-    private Enemy encounter;
+    private string _name;
+    private string _description;
+    private Enemy _encounter;
 
     public Room(string name, string description, Enemy encounter = null)
     {
-        this.name = name;
-        this.description = description;
-        this.encounter = encounter;
+        _name = name;
+        _description = description;
+        _encounter = encounter;
     }
 
-    public string GetName() => name;
-    public string GetDescription() => description;
-    public Enemy GetEncounter() => encounter;
+    public string GetName()
+    {
+        return _name;
+    }
+    public string GetDescription()
+    {
+        return _description;
+    }
+    public Enemy GetEncounter()
+    {
+        return _encounter;
+    }
 
     public static Room SelectRoom()
     {
